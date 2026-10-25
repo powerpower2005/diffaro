@@ -1,0 +1,167 @@
+// Wire-compatible subset of Argo CD v3.5.1's Apache-2.0 protobuf schema.
+// Source: reposerver/repository/repository.proto and
+// pkg/apis/application/v1alpha1/generated.proto at tag v3.5.1.
+// Keep field numbers and wire types aligned with upstream; add only fields
+// accepted by Diffaro's trusted Git Helm and external Git values backend.
+syntax = "proto3";
+package repository;
+
+service RepoServerService {
+  rpc GenerateManifest(ManifestRequest) returns (ManifestResponse);
+  rpc ResolveRevision(ResolveRevisionRequest) returns (ResolveRevisionResponse);
+}
+
+// ResolveRevision only reads the source to choose Git/Helm/OCI resolution.
+message Application { ApplicationSpec spec = 2; }
+message ApplicationSpec { ApplicationSource source = 1; }
+message ResolveRevisionRequest {
+  Repository repo = 1;
+  Application app = 2;
+  string ambiguousRevision = 3;
+  int64 sourceIndex = 4;
+  bool noRevisionCache = 5;
+}
+message ResolveRevisionResponse {
+  string revision = 1;
+  string ambiguousRevision = 2;
+}
+
+message ManifestRequest {
+  Repository repo = 1;
+  string revision = 2;
+  bool noCache = 3;
+  string appLabelKey = 4;
+  string appName = 5;
+  string namespace = 8;
+  ApplicationSource applicationSource = 10;
+  repeated Repository repos = 11;
+  string kubeVersion = 14;
+  repeated string apiVersions = 15;
+  repeated RepoCreds helmRepoCreds = 17;
+  bool noRevisionCache = 18;
+  string trackingMethod = 19;
+  map<string, bool> enabledSourceTypes = 20;
+  HelmOptions helmOptions = 21;
+  bool hasMultipleSources = 22;
+  map<string, RefTarget> refSources = 23;
+  repeated string projectSourceRepos = 24;
+  string projectName = 25;
+  string installationID = 27;
+}
+
+message RefTarget {
+  Repository repo = 1;
+  string targetRevision = 2;
+  string chart = 3;
+}
+
+message ManifestResponse {
+  repeated string manifests = 1;
+  string namespace = 2;
+  string server = 3;
+  string revision = 4;
+  string sourceType = 6;
+}
+
+message Repository {
+  string repo = 1;
+  string username = 2;
+  string password = 3;
+  string sshPrivateKey = 4;
+  bool insecureIgnoreHostKey = 6;
+  bool insecure = 7;
+  bool enableLfs = 8;
+  string tlsClientCertData = 9;
+  string tlsClientCertKey = 10;
+  string type = 11;
+  string name = 12;
+  bool inheritedCreds = 13;
+  bool enableOCI = 14;
+  string githubAppPrivateKey = 15;
+  int64 githubAppID = 16;
+  int64 githubAppInstallationID = 17;
+  string githubAppEnterpriseBaseUrl = 18;
+  string proxy = 19;
+  string project = 20;
+  string gcpServiceAccountKey = 21;
+  bool forceHttpBasicAuth = 22;
+  string noProxy = 23;
+  bool useAzureWorkloadIdentity = 24;
+  string bearerToken = 25;
+  bool insecureOCIForceHttp = 26;
+  int64 depth = 27;
+  bool webhookManifestCacheWarmDisabled = 28;
+}
+
+message RepoCreds {
+  string url = 1;
+  string username = 2;
+  string password = 3;
+  string sshPrivateKey = 4;
+  string tlsClientCertData = 5;
+  string tlsClientCertKey = 6;
+  string githubAppPrivateKey = 7;
+  int64 githubAppID = 8;
+  int64 githubAppInstallationID = 9;
+  string githubAppEnterpriseBaseUrl = 10;
+  bool enableOCI = 11;
+  string type = 12;
+  string gcpServiceAccountKey = 13;
+  string proxy = 19;
+  bool forceHttpBasicAuth = 20;
+  string noProxy = 23;
+  bool useAzureWorkloadIdentity = 24;
+  string bearerToken = 25;
+  bool insecureOCIForceHttp = 26;
+  string azureServicePrincipalClientId = 29;
+  string azureServicePrincipalClientSecret = 30;
+  string azureServicePrincipalTenantId = 31;
+  string azureActiveDirectoryEndpoint = 32;
+}
+
+message ApplicationSource {
+  string repoURL = 1;
+  string path = 2;
+  string targetRevision = 4;
+  ApplicationSourceHelm helm = 7;
+  string ref = 13;
+  string name = 14;
+  string tagPrefix = 15;
+}
+
+message ApplicationSourceHelm {
+  repeated string valueFiles = 1;
+  repeated HelmParameter parameters = 2;
+  string releaseName = 3;
+  string values = 4;
+  repeated HelmFileParameter fileParameters = 5;
+  string version = 6;
+  bool passCredentials = 7;
+  bool ignoreMissingValueFiles = 8;
+  bool skipCrds = 9;
+  RawExtension valuesObject = 10;
+  string namespace = 11;
+  string kubeVersion = 12;
+  repeated string apiVersions = 13;
+  bool skipTests = 14;
+  bool skipSchemaValidation = 15;
+}
+
+message HelmParameter {
+  string name = 1;
+  string value = 2;
+  bool forceString = 3;
+}
+
+message HelmFileParameter {
+  string name = 1;
+  string path = 2;
+}
+
+message HelmOptions {
+  repeated string valuesFileSchemes = 1;
+}
+
+message RawExtension {
+  bytes raw = 1;
+}

@@ -1,0 +1,37 @@
+{
+  "roots": ["nested-root-a", "nested-root-b"],
+  "base": {
+    "nested-root-a": ["a-shared", "org-a"],
+    "nested-root-b": ["org-b"],
+    "org-a": ["region-a", "retired-parent"],
+    "region-a": ["env-a"],
+    "env-a": ["team-a", "a-shared"],
+    "team-a": ["service-a"],
+    "service-a": ["rollout-a"],
+    "rollout-a": ["workload-a"],
+    "workload-a": [],
+    "org-b": ["region-b"],
+    "region-b": ["env-b"],
+    "env-b": ["team-b", "a-shared"],
+    "team-b": ["service-b"],
+    "service-b": ["rollout-b"],
+    "rollout-b": ["workload-b"],
+    "workload-b": [],
+    "a-shared": ["service-shared"],
+    "service-shared": ["rollout-shared"],
+    "rollout-shared": ["workload-shared"],
+    "workload-shared": [],
+    "retired-parent": ["retired-env"],
+    "retired-env": ["retired-team"],
+    "retired-team": ["retired-service"],
+    "retired-service": ["retired-workload"],
+    "retired-workload": []
+  },
+  "added": {
+    "new-parent": ["new-env"],
+    "new-env": ["new-team"],
+    "new-team": ["new-service"],
+    "new-service": ["new-workload"],
+    "new-workload": []
+  }
+}

@@ -1,0 +1,4 @@
+replicas: 2
+selector: ""
+config: stable
+maxUnavailable: 0

@@ -1,0 +1,26 @@
+{{- $names := list "api" }}
+{{- if .Values.workerEnabled }}{{- $names = append $names "worker" }}{{- end }}
+{{- range $name := $names }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $name }}
+  namespace: argocd
+spec:
+  project: demo
+  destination: {name: demo-cluster, namespace: demo}
+  source:
+    repoURL: https://github.com/example/diffaro-demo.git
+    targetRevision: main
+    path: workload
+    helm:
+      releaseName: {{ $name }}
+      {{- if eq $name "api" }}
+      parameters:
+        - {name: replicas, value: {{ $.Values.replicas | quote }}}
+        - {name: selector, value: {{ $.Values.selector | quote }}}
+        - {name: config, value: {{ $.Values.config | quote }}}
+        - {name: maxUnavailable, value: {{ $.Values.maxUnavailable | quote }}}
+      {{- end }}
+{{- end }}

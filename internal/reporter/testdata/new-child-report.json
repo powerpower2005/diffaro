@@ -1,0 +1,438 @@
+{
+  "applications": [
+    {
+      "cluster": "test-cluster",
+      "execution": "complete",
+      "graphPath": [
+        {
+          "instance": "demo",
+          "name": "parent",
+          "namespace": "argocd"
+        },
+        {
+          "instance": "demo",
+          "name": "new-api",
+          "namespace": "argocd"
+        }
+      ],
+      "headTarget": {
+        "cluster": "test-cluster",
+        "execution": "complete",
+        "graphPath": [
+          {
+            "instance": "demo",
+            "name": "parent",
+            "namespace": "argocd"
+          },
+          {
+            "instance": "demo",
+            "name": "new-api",
+            "namespace": "argocd"
+          }
+        ],
+        "inputs": {
+          "fileParameters": [],
+          "inlineValues": false,
+          "origin": "parent-target-manifest",
+          "parameters": [],
+          "path": "child",
+          "valueFiles": [],
+          "valuesObject": true
+        },
+        "namespace": "demo",
+        "project": "demo",
+        "repository": "https://github.com/example/charts.git",
+        "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "revisionRule": "selected-repository-pair",
+        "root": {
+          "instance": "demo",
+          "name": "parent",
+          "namespace": "argocd"
+        }
+      },
+      "id": {
+        "instance": "demo",
+        "name": "new-api",
+        "namespace": "argocd"
+      },
+      "inputs": {
+        "fileParameters": [],
+        "inlineValues": false,
+        "origin": "parent-target-manifest",
+        "parameters": [],
+        "path": "child",
+        "valueFiles": [],
+        "valuesObject": true
+      },
+      "issues": [],
+      "namespace": "demo",
+      "project": "demo",
+      "resources": [
+        {
+          "changes": [
+            {
+              "after": {
+                "apiVersion": "v1",
+                "kind": "Service",
+                "metadata": {
+                  "annotations": {
+                    "argocd.argoproj.io/tracking-id": "new-api:/Service:demo/new-api"
+                  },
+                  "name": "new-api",
+                  "namespace": "demo"
+                },
+                "spec": {
+                  "ports": [
+                    {
+                      "port": 80,
+                      "targetPort": 8080
+                    }
+                  ],
+                  "selector": {
+                    "app": "new-api"
+                  }
+                }
+              },
+              "before": null,
+              "operation": "add",
+              "path": "/"
+            }
+          ],
+          "comparison": "complete",
+          "id": {
+            "cluster": "demo:test-cluster",
+            "group": "",
+            "kind": "Service",
+            "name": "new-api",
+            "namespace": "demo"
+          },
+          "state": "added"
+        },
+        {
+          "changes": [
+            {
+              "after": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "metadata": {
+                  "annotations": {
+                    "argocd.argoproj.io/tracking-id": "new-api:apps/Deployment:demo/new-api"
+                  },
+                  "name": "new-api",
+                  "namespace": "demo"
+                },
+                "spec": {
+                  "replicas": 3,
+                  "selector": {
+                    "matchLabels": {
+                      "app": "new-api"
+                    }
+                  },
+                  "template": {
+                    "metadata": {
+                      "labels": {
+                        "app": "new-api"
+                      }
+                    },
+                    "spec": {
+                      "containers": [
+                        {
+                          "image": "example.invalid/api:1",
+                          "name": "api"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "before": null,
+              "operation": "add",
+              "path": "/"
+            }
+          ],
+          "comparison": "complete",
+          "id": {
+            "cluster": "demo:test-cluster",
+            "group": "apps",
+            "kind": "Deployment",
+            "name": "new-api",
+            "namespace": "demo"
+          },
+          "state": "added"
+        }
+      ],
+      "root": {
+        "instance": "demo",
+        "name": "parent",
+        "namespace": "argocd"
+      },
+      "state": "added"
+    },
+    {
+      "baseTarget": {
+        "cluster": "in-cluster",
+        "execution": "complete",
+        "graphPath": [
+          {
+            "instance": "demo",
+            "name": "parent",
+            "namespace": "argocd"
+          }
+        ],
+        "inputs": {
+          "fileParameters": [],
+          "inlineValues": false,
+          "origin": "stored-application-spec",
+          "parameters": [],
+          "path": "parent",
+          "valueFiles": [],
+          "valuesObject": false
+        },
+        "namespace": "argocd",
+        "project": "demo",
+        "repository": "https://github.com/example/charts.git",
+        "revision": "cccccccccccccccccccccccccccccccccccccccc",
+        "revisionRule": "selected-repository-pair",
+        "root": {
+          "instance": "demo",
+          "name": "parent",
+          "namespace": "argocd"
+        }
+      },
+      "cluster": "in-cluster",
+      "execution": "complete",
+      "graphPath": [
+        {
+          "instance": "demo",
+          "name": "parent",
+          "namespace": "argocd"
+        }
+      ],
+      "headTarget": {
+        "cluster": "in-cluster",
+        "execution": "complete",
+        "graphPath": [
+          {
+            "instance": "demo",
+            "name": "parent",
+            "namespace": "argocd"
+          }
+        ],
+        "inputs": {
+          "fileParameters": [],
+          "inlineValues": false,
+          "origin": "stored-application-spec",
+          "parameters": [],
+          "path": "parent",
+          "valueFiles": [],
+          "valuesObject": false
+        },
+        "namespace": "argocd",
+        "project": "demo",
+        "repository": "https://github.com/example/charts.git",
+        "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "revisionRule": "selected-repository-pair",
+        "root": {
+          "instance": "demo",
+          "name": "parent",
+          "namespace": "argocd"
+        }
+      },
+      "id": {
+        "instance": "demo",
+        "name": "parent",
+        "namespace": "argocd"
+      },
+      "inputChanges": [
+        {
+          "changes": [
+            {
+              "after": true,
+              "before": false,
+              "operation": "replace",
+              "path": "/changed"
+            }
+          ],
+          "comparison": "complete",
+          "kind": "valueFile",
+          "path": "parent/values.yaml",
+          "repository": "https://github.com/example/charts",
+          "state": "changed"
+        }
+      ],
+      "inputs": {
+        "fileParameters": [],
+        "inlineValues": false,
+        "origin": "stored-application-spec",
+        "parameters": [],
+        "path": "parent",
+        "valueFiles": [],
+        "valuesObject": false
+      },
+      "issues": [],
+      "namespace": "argocd",
+      "project": "demo",
+      "resources": [
+        {
+          "changes": [
+            {
+              "after": {
+                "apiVersion": "argoproj.io/v1alpha1",
+                "kind": "Application",
+                "metadata": {
+                  "annotations": {
+                    "argocd.argoproj.io/tracking-id": "parent:argoproj.io/Application:argocd/new-api"
+                  },
+                  "name": "new-api",
+                  "namespace": "argocd"
+                },
+                "spec": {
+                  "destination": {
+                    "name": "test-cluster",
+                    "namespace": "demo"
+                  },
+                  "project": "demo",
+                  "source": {
+                    "helm": {
+                      "valuesObject": "[REDACTED]"
+                    },
+                    "path": "child",
+                    "repoURL": "https://github.com/example/charts.git",
+                    "targetRevision": "main"
+                  }
+                }
+              },
+              "before": null,
+              "operation": "add",
+              "path": "/"
+            }
+          ],
+          "comparison": "complete",
+          "id": {
+            "cluster": "demo:in-cluster",
+            "group": "argoproj.io",
+            "kind": "Application",
+            "name": "new-api",
+            "namespace": "argocd"
+          },
+          "state": "added"
+        }
+      ],
+      "root": {
+        "instance": "demo",
+        "name": "parent",
+        "namespace": "argocd"
+      },
+      "state": "changed"
+    }
+  ],
+  "changesFound": true,
+  "coverage": "repository-discovered-target-graph",
+  "discovery": [
+    {
+      "decisions": [
+        {
+          "id": {
+            "instance": "demo",
+            "name": "parent",
+            "namespace": "argocd"
+          },
+          "project": "demo",
+          "reason": "same-source-repository-conservative-selection",
+          "selected": true,
+          "selection": "ineligible",
+          "selectionReason": "Argo CD status does not show whether this Application manages child Applications"
+        }
+      ],
+      "instance": "demo",
+      "projects": [],
+      "status": "complete"
+    }
+  ],
+  "generator": {
+    "command": "diff",
+    "goVersion": "go1.27.3",
+    "platform": "darwin/arm64",
+    "profile": {
+      "backends": [
+        "local-helm-external"
+      ],
+      "instances": 1,
+      "selection": "changedPaths"
+    },
+    "revision": "unknown",
+    "version": "dev"
+  },
+  "graph": {
+    "baseComplete": true,
+    "baseEdges": [],
+    "changes": [
+      {
+        "child": {
+          "instance": "demo",
+          "name": "new-api",
+          "namespace": "argocd"
+        },
+        "parent": {
+          "instance": "demo",
+          "name": "parent",
+          "namespace": "argocd"
+        },
+        "state": "added"
+      }
+    ],
+    "headComplete": true,
+    "headEdges": [
+      {
+        "child": {
+          "instance": "demo",
+          "name": "new-api",
+          "namespace": "argocd"
+        },
+        "method": "rendered-application",
+        "parent": {
+          "instance": "demo",
+          "name": "parent",
+          "namespace": "argocd"
+        },
+        "repository": "https://github.com/example/charts.git",
+        "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "routing": "cluster"
+      }
+    ]
+  },
+  "issues": [],
+  "limitations": [
+    "Selection covers readable Applications using the PR repository and their rendered descendants; hidden apps and indirect chart dependencies in other repositories are not automatically identified.",
+    "Roots use one stored-spec snapshot; selected-repository nodes use the requested base/head SHA.",
+    "Other repositories require an immutable 40-character targetRevision; their selection is reported per node.",
+    "Instances using the basic Application API skip new or reconfigured child resource rendering and descendant discovery; explicitly configured local Helm instances render supported desired child specs.",
+    "Missing nodes are added/removed only when opposite discovery is complete for their instance; configured routes from incomplete subtrees prevent absence claims in reachable instances.",
+    "Removed targets are pruning candidates, not proof of live deletion; parent prune policy, child finalizers and cascade behavior must be checked.",
+    "Argo CD masks Secret payloads; existing payload equality is not observable. Backend capabilities must stay stable; system ignore rules are not imported.",
+    "Changed-path selection rendered all 1 repository candidates and their descendants: none was proven unaffected by the PR files. Reasons are in discovery decisions.",
+    "Local Helm uses the bundled engine or an explicitly selected trusted executable with authenticated Argo CD API settings and cached capabilities. Custom server tooling/environment and unavailable context are not certified; skipped branches remain incomplete. No repo-server, Kubernetes credentials or repository scripts are used."
+  ],
+  "policyViolations": [],
+  "redaction": "enabled",
+  "renderBackends": [
+    {
+      "compatibility": "bounded-git-helm-external",
+      "contextID": "external-helm/v3.19.0+g3d8990f/sha256:2c78b8417bcedf1c9534570ac2c02824c094a191f3fb4450edb0f3cec2c6bc24",
+      "helmSHA256": "2c78b8417bcedf1c9534570ac2c02824c094a191f3fb4450edb0f3cec2c6bc24",
+      "helmVersion": "v3.19.0+g3d8990f",
+      "instance": "demo",
+      "kind": "local-helm",
+      "verification": "local-context-unverified",
+      "version": "v3.5.1"
+    }
+  ],
+  "revisions": {
+    "base": "cccccccccccccccccccccccccccccccccccccccc",
+    "head": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "mode": "pr-merge-base-head",
+    "repository": "example/charts"
+  },
+  "schemaVersion": "v1alpha1",
+  "status": "success"
+}

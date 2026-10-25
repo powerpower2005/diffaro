@@ -1,0 +1,7 @@
+# Tests and examples use fictional-* placeholder credentials.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "fictional placeholder credentials in tests and examples"
+regexes = ['''fictional-[A-Za-z0-9-]+''']

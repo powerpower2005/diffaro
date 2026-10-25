@@ -1,0 +1,5 @@
+workerEnabled: false
+replicas: 3
+selector: api
+config: before
+maxUnavailable: 0
